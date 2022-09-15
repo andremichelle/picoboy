@@ -3,6 +3,7 @@
 #include <fps.h>
 #include <joystick.h>
 #include <led.h>
+#include <sprites.h>
 
 LED led;
 Joystick joystick;
@@ -32,8 +33,12 @@ void loop() {
     u8g2.println("FPS");
     u8g2.setCursor(u8g2.getStrWidth("FPS") + 3, 5);
     u8g2.println(fps());
+    u8g2.setCursor(0, 15);
+    u8g2.println(sizeof(HeroXMB));
 
-    u8g2.drawPixel(xy[0], xy[1]);
+    u8g2.setDrawColor(1);
+    u8g2.setBitmapMode(0);
+    u8g2.drawXBM(xy[0], xy[1], 7, 14, HeroXMB[abs(2 - ((frame >> 3) & 3))]);
 
     if (joystick.get(Joystick::CENTER)) {
         u8g2.drawFilledEllipse(104, 32, 5, 5);
